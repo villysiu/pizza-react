@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useAlert } from "../context/AlertContext";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Form, Button, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { Form, Button, Spinner, Modal } from "react-bootstrap";
 import EmailInput from "./EmailInput";
 import PasswordInput from "./PasswordInput";
 import NameInput from "./NameInput";
 
 
+
 const Signup = () => {
 
-    const { login } = useAuth();
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { register, show, setShow } = useAuth();
+
 
     const [name, setName] = useState('')
     const [nameError, setNameError] = useState('')
@@ -21,87 +20,59 @@ const Signup = () => {
     const [password, setPassword] = useState("")
     const [passwordError, setPasswordError] = useState("")
 
-    const [loading, setLoading] = useState(false)
 
-    const {showAlert} = useAlert();
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        setLoading(true);
-            
-        try {
-            const response = await fetch('http://localhost:3000/api/v1/auth/register', {
-                'method': "POST",
-                'headers': {
-                    'content-type': 'application/json',
-                    'accept': 'application/json',
-
-                },
-                'body': JSON.stringify({
+        const success = await register({
                     "name": name,
                     "email": email,
                     "password": password
-                }),
-
-            })
-
-            const data = await response.json();
-            if(!response.ok) {            
-                throw new Error(data.msg);
-            }
-
-            // load data
-            login(data.user)
-            localStorage.setItem("token", data.token)
-
-            showAlert(`Welcome, ${data.user.name}`, 'success') 
-            const from = location.state?.from?.pathname || "/";
-            navigate(from, { replace: true });
-
-            setEmail('');
+                })
+        if(success){
+            setEmail('')
+            setName('')
             setPassword('')
         }
-        catch(error){
-            console.error(error);
-            showAlert(error.message, 'danger')
-        } 
-        finally {
-            setLoading(false);
-        }
     }
-
-
+    
     return(
-        <div className='signup-wrapper'>
-        <div className='signup-frame'>
+        <>
+            <Modal.Header closeButton>
+                <Modal.Title>Sign up a new account</Modal.Title>
+            </Modal.Header>
 
-            <h3 className="mb-4">Sign up a new account</h3>
-            <Form onSubmit={handleSubmit} style={{ width: '100%'}}>
-                <NameInput name={name} setName={setName} nameError={nameError} setNameError={setNameError}/>
-                <EmailInput email={email} setEmail={setEmail} emailError={emailError} setEmailError={setEmailError} />
-                <PasswordInput password={password} setPassword={setPassword} passwordError={passwordError} setPasswordError={setPasswordError} />
+            <Modal.Body >
+
+                <Form onSubmit={handleSubmit} style={{ width: '100%'}}>
+                    <NameInput name={name} setName={setName} nameError={nameError} setNameError={setNameError}/>
+                    <EmailInput email={email} setEmail={setEmail} emailError={emailError} setEmailError={setEmailError} />
+                    <PasswordInput password={password} setPassword={setPassword} passwordError={passwordError} setPasswordError={setPasswordError} />
+                    
+
+                </Form>
+                
+            </Modal.Body>
+            <Modal.Footer className="d-flex justify-content-between align-items-center">
+                <span>Already have an account,{' '}
+                <Link onClick={()=>setShow('login')} >
+                    login here
+                </Link>
+                </span>
                 <Button type="submit" 
-                        disabled={ loading || 
-                                   emailError!=="" || 
-                                   passwordError!=="" || 
-                                   email==="" || 
-                                   password==="" || 
-                                   name==="" || 
-                                   nameError!==""
-                                }
-                >
-                    {loading? <Spinner size="sm"/> : "Sign Up" }
-                </Button>
-
-            </Form>
-            <div>Forgot your password?</div>
-            <Link to={`/login`}>
-
-                Sign in to your account
-
-            </Link>
-        </div>
-        </div>
+                            disabled={ 
+                                    emailError!=="" || 
+                                    passwordError!=="" || 
+                                    email==="" || 
+                                    password==="" || 
+                                    name==="" || 
+                                    nameError!==""
+                                    }
+                    >
+                       Sign Up
+                    </Button>
+            </Modal.Footer>
+        </>
 
 
     )

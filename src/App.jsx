@@ -7,36 +7,30 @@ import Menuitem from "./components/Menuitem"
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Profile from './components/user/Profile'
-// import Order from "./components/Order"
+import Orders from "./components/order/Orders"
 import NavigationBar from "./components/navbar/Navbar"
 import AlertBar from "./components/navbar/AlertBar"
 import ProtectedRoute from "./components/routes/ProtectedRoute"
-import RedirectIfAuth from "./components/routes/RedirectIfAuth"
 
+import { useAuth } from './components/context/AuthContext'
+import { useCart } from './components/context/CartContext'
+import { useOrder } from './components/context/OrderContext'
+import FullScreenSpinner from './components/routes/FullScreenSpinner'
 
-function App() {
+function App(){
+  const { loading: cartLoading } = useCart();
+  const {loading: orderLoading } = useOrder();
+  const {loading: authLoading } = useAuth();
 
   return (
     <>
+      {(orderLoading || cartLoading || authLoading) && <FullScreenSpinner /> }
       <NavigationBar />
       <AlertBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menuitem />} />
-        <Route path="/login" 
-          element={
-            <RedirectIfAuth>
-              <Login />
-            </RedirectIfAuth>
-          } 
-        />
-        <Route path="/signup" 
-          element={
-            <RedirectIfAuth>
-              <Signup />
-            </RedirectIfAuth>
-          } 
-        />
+       
         <Route
           path="/profile" 
           element={
@@ -46,9 +40,15 @@ function App() {
 
           }
         />
-        
+        <Route
+          path="/orders" 
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
 
-      
+          }
+        />
 
       </Routes>
     </>
