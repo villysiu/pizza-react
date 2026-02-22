@@ -13,7 +13,7 @@ const CheckoutButton = () => {
     return (
         <Button 
             onClick={handleClick}
-            variant="primary" className="w-100"
+            variant="primary" className="mt-3 w-100"
         >
             Checkout
         </Button>

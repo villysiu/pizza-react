@@ -1,3 +1,6 @@
+import {PlusCircleFill, DashCircleFill} from 'react-bootstrap-icons'
+import { Form, Button} from 'react-bootstrap'
+
 const Quantity =({quantity, setQuantity})=>{
     const handleClick = (sign) =>{
         if(sign==='-')
@@ -13,17 +16,31 @@ const Quantity =({quantity, setQuantity})=>{
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
-                
-                <button onClick={()=>handleClick('-')} disabled={quantity===1}> - </button>
-                <div style={{ 
-                    width: '3rem', 
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center' 
-                }}>
-                    {quantity}
-                </div>
-                <button onClick={()=>handleClick('+')}  disabled={quantity===6}> + </button>
+            
+                <Button variant="link"
+                        className="p-0 border-0" 
+                        onClick={()=>handleClick('-')}  
+                        disabled={quantity===1}> 
+                    <DashCircleFill size={20}/> 
+                </Button> 
+                <Form.Control
+                    type="text"
+                    value={quantity}
+                    readOnly
+                    className="text-center mx-1"
+                    style={{
+    width: "3rem",
+    // border: "1px solid #000",
+    // borderRadius: "4px",
+    // backgroundColor: "#fff"
+  }}
+                    />
+                <Button variant="link"
+                        className="p-0 border-0" 
+                        onClick={()=>handleClick('+')}  
+                        disabled={quantity===6}> 
+                    <PlusCircleFill size={20}/> 
+                </Button>
                 
             </div>
         </div>
