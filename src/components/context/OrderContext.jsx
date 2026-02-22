@@ -19,6 +19,7 @@ export const OrderProvider = ({ children }) => {
 
     const getOrders = async () => {
         setLoading(true)
+        await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {
             const response = await fetch(`${backendApi}/api/v1/orders`, {
                 'method': "GET",
@@ -48,6 +49,7 @@ export const OrderProvider = ({ children }) => {
     const getOrderDetails = async (orderId) => {
         setLoading(true)
         setShow(null)
+        await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {
             await new Promise((resolve)=>setTimeout(resolve, 2000))
             
@@ -112,10 +114,8 @@ export const OrderProvider = ({ children }) => {
     const deleteOrder = async(orderId) => {
         console.log("delete order")
         setLoading(true)
-
-        try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
-                
+await new Promise((resolve)=>setTimeout(resolve, 2000))
+        try {        
             const response = await fetch(`${backendApi}/api/v1/orders/${orderId}`, {
                 'method': 'DELETE',
                 'headers': {
@@ -145,7 +145,7 @@ export const OrderProvider = ({ children }) => {
             setOrders([])
             return;
         }
-        getOrders();
+        
     }, [user])
 
     

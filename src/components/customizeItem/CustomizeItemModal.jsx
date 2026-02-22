@@ -42,11 +42,11 @@ const CustomizeItemModal = ({handleClose, item}) => {
        
             <Modal show={true} onHide={handleClose} size="lg"  >
             
-                <Modal.Header className='customize_header' closeButton>
+                <Modal.Header closeButton>
                     <Modal.Title>Customize {item.menuitem.title} </Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body className='customize_list'>
+                <Modal.Body >
                     <CustomizeTemperature temperature={temperature} setTemperature={setTemperature} />
                     <CustomizeSize sizeId={sizeId} setSizeId={setSizeId} />
                     <CustomizeMilk milkId={milkId} setMilkId={setMilkId} />

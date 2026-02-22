@@ -9,7 +9,7 @@ export const MenuProvider = ({ children }) => {
     const [sizes, setSizes] = useState([])
     const [temperatures, setTemperatures] = useState([])
     const [sugars, setSugars] = useState([])
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const fetchHelper = async (apiUrl) => {
         const response = await fetch(apiUrl)
@@ -20,9 +20,7 @@ export const MenuProvider = ({ children }) => {
         }
         return response.json()
     }
-
-    useEffect(() => {
-        const fetchMenuitemData = async () => {
+    const fetchMenuitemData = async () => {
         try {
             const [menuitemData, milkData, sizeData, temperatureData, sugarData] = await Promise.all([
                 fetchHelper(`${backendApi}/api/v1/menuitems`),
@@ -43,8 +41,10 @@ export const MenuProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-        };
+    };
 
+    useEffect(() => {
+        
         fetchMenuitemData();
     }, []);
 
