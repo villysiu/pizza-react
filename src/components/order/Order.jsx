@@ -1,3 +1,4 @@
+import React from 'react'
 import { useOrder } from '../context/OrderContext'
 import { Row, Col } from 'react-bootstrap'
 import OrderDetails from './OrderDetails'
@@ -15,7 +16,7 @@ const Order = ({order}) => {
     const handleClick = (orderId) => {
         if(orderId === show) return;
 
-        if(order.orderDetails){
+        if(order && order.orderDetails){
             console.log(order.orderDetails)
             // setOrderDetails(order.orderDetails )
             setShow(orderId)
@@ -26,8 +27,8 @@ const Order = ({order}) => {
     }
     return(
     
-        <>
-            <Row key={order._id} className='order-row py-3' onClick={()=>handleClick(order._id)}> 
+        <React.Fragment key={order._id}>
+            <Row className='order-row py-3' onClick={()=>handleClick(order._id)}> 
                 <Col className='text-start'>
                     Order Date: {formattedDate}
                 </Col>
@@ -43,18 +44,18 @@ const Order = ({order}) => {
             </Row>
             { 
                 show === order._id && 
-                    <>
-                    <Row key={`details-${order._id}`} className='border-bottom py-2'>
+                    <React.Fragment key={`details-${order._id}`}>
+                    <Row  className='border-bottom py-2'>
                         <Col xs={4} className='text-start'>Beverage</Col>
                         <Col xs={4} className='text-start'>Options</Col>
                         <Col xs={2} className='text-end'>Quantity</Col>
                         <Col xs={2} className='text-end'>Unit Price</Col>
                     </Row>
-                    { order.orderDetails.map(detail => <OrderDetails detail={detail} />)  }
-                </> 
+                    { order && order.orderDetails && order.orderDetails.map(detail => <OrderDetails key={detail._id} detail={detail} />)  }
+                </React.Fragment> 
             }
 
-        </>
+        </React.Fragment>
         )
 }
 export default Order

@@ -1,5 +1,5 @@
 import { useOrder } from '../context/OrderContext'
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import Order from './Order'
 
@@ -12,20 +12,23 @@ const Orders = () => {
     console.log(orders)
     
     useEffect(()=>{
-        console.log('jjj')
         if(orders.length === 0)
             getOrders();
 
     }, [])
 
-    if(orders.length === 0){
+
+    if(!loading && orders.length === 0){
         return(
             <div> No Previous Order. </div>
         )}
     return (
         <>
             <Container>
-                { orders.map((order) => <Order order={order} />) }
+                <Row key='all-order' className='text-start py-4'>
+                    <Col xs={12} ><h3>Your Orders</h3></Col>
+                </Row>
+                { orders.map((order) => <Order key={order.id} order={order} />) }
             </Container>
         </>
         
