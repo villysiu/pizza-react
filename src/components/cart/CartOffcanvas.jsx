@@ -12,7 +12,7 @@ const CartOffcanvas = () => {
     const { carts, subtotal, show, setShow, loading } = useCart();
 
     console.log( carts)
-
+    const count = carts.reduce((total, c )=>total+ c.quantity, 0)
     return (
         <Offcanvas  show={show} onHide={() => setShow(false)} 
                     placement="end"
@@ -28,7 +28,7 @@ const CartOffcanvas = () => {
 
 
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Your Cart ({carts.length} items)</Offcanvas.Title>
+                <Offcanvas.Title>Your Cart ({count} items)</Offcanvas.Title>
             </Offcanvas.Header>
 
             { carts.length > 0 ? 
