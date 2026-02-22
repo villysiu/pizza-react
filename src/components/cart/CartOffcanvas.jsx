@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import CartItem from './CartItem'
-import { Offcanvas, Button, Spinner } from 'react-bootstrap'
+import { Offcanvas, Button, Spinner, Alert } from 'react-bootstrap'
 import { useCart } from '../context/CartContext'
+import { useAlert } from '../context/AlertContext'
 import CheckoutButton from './CheckoutButton'
 import { Cart } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'; 
@@ -10,7 +11,7 @@ const CartOffcanvas = () => {
     
 
     const { carts, subtotal, show, setShow, loading } = useCart();
-
+    const { cartAlert } = useAlert();
     console.log( carts)
     const count = carts.reduce((total, c )=>total+ c.quantity, 0)
     return (
@@ -33,7 +34,16 @@ const CartOffcanvas = () => {
 
             { carts.length > 0 ? 
             <>
+
                 <Offcanvas.Body>
+                    {cartAlert && <Alert
+                    key={cartAlert.id}
+                    variant={cartAlert.variant}
+                    style={{textAlign: 'left'}}
+                >
+                    {cartAlert.message}
+                </Alert>}
+
                 {  carts.map(cart => <CartItem key={cart._id} cart={cart} />) }
                 </Offcanvas.Body>
                 

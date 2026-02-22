@@ -10,30 +10,8 @@ const EditQuantityInput = ({cart}) => {
 
     const handleUpdate = () => {
 
-        if(quantity === cart.quantity)
-            return; 
-
-        if ( quantity < 1 || quantity > 6) {
-            setError('Between 1-6');
-            setQuantity(cart.quantity);
-            return;
-        }
-
-        updateCart({
-            'cartId': cart._id,
-            'quantity': quantity 
-        })
-        }
-    const handleBlur = () => {
-        setError('')
-        handleUpdate()
-
-    }
-    const handleKeyDown =(e) =>{
-        if(e.key === 'Enter'){
-            e.preventDefault();
-            handleUpdate()
-        }
+       
+        
     }
     return (
         <>

@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
     const backendApi = 'http://localhost:3000'
 
     const { user } = useAuth();
-    const { showAlert } = useAlert();
+    const { createCartAlert, showAlert } = useAlert();
     const [carts, setCarts] = useState([])
     const [subtotal, setSubtotal] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -39,7 +39,6 @@ export const CartProvider = ({ children }) => {
         } catch (error) {
             console.error(error);
             showAlert(error.message, 'danger')
-            // setFetchCartsStatus('failed')
         }
         finally{
             setLoading(false)
@@ -63,13 +62,13 @@ export const CartProvider = ({ children }) => {
             })
             const data = await response.json()
             if(!response.ok) {
- 
                 throw new Error(data.msg || "Failed to add item");
             }
             console.log('new item added:', data.cart);
             
             await getCarts()
             setShow(true)
+            createCartAlert("item added", 'success')
 
         } catch (error) {
             console.error(error);
@@ -103,10 +102,11 @@ export const CartProvider = ({ children }) => {
                 throw new Error(data.msg || "Failed to update cart item")
             }
             await getCarts()   
+            createCartAlert("Item updated", 'success')
 
         } catch (error) {
             console.error(error.message)
-            showAlert(error.message, 'danger')
+            createCartAlert(error.msg, 'danger')
         }
         finally {
             setLoading(false)
@@ -131,10 +131,11 @@ export const CartProvider = ({ children }) => {
                 throw new Error(data.msg || "Failed to delete cart item")
             }
             await getCarts()
+            createCartAlert("Item removed", 'success')
             
         } catch (error) {
             console.error(error.message)
-            showAlert(error.message, 'danger')
+            createCartAlert(error.msg, 'danger')
         }
         finally {
             setLoading(false)

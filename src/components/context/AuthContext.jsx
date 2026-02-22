@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
             setShow('');
         }
     }
-    const register = async ({userData}) => {
+    const register = async (userData) => {
         setLoading(true);
-            
+        console.log(userData)
         try {
             const response = await fetch('http://localhost:3000/api/v1/auth/register', {
                 'method': "POST",
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
         }
         catch(error){
             console.error(error);
-            showAlert(error.message, 'danger')
+            showAlert(error.message)
         } 
         finally {
             setLoading(false);
@@ -87,11 +87,12 @@ export const AuthProvider = ({ children }) => {
             setUser(null)
             
             localStorage.removeItem("token");
-            setAlert("Goodbye")
+            showAlert("Goodbye", "success")
             
         } catch (error) {
             // no error not api
             console.error(error)
+
         } finally {
             setLoading(false);
         }
@@ -141,7 +142,7 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, loading, show, setShow }}>
+        <AuthContext.Provider value={{ user, login, register, logout, loading, show, setShow }}>
             {children}
         </AuthContext.Provider> 
     )
