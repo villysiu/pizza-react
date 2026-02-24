@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
                 throw new Error(data.msg || "faileed to login");
             }
 
-            setUser(data)
+            setUser(data.user)
             localStorage.setItem("token", data.token)
 
             showAlert(`Welcome back, ${data.user.name}`, 'success') 
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }) => {
                 throw new Error(data.msg || 'failed to register user');
             }
 
-            setUser(data)
+            setUser(data.user)
             localStorage.setItem("token", data.token)
 
             showAlert(`Welcome, ${data.user.name}`, 'success') 
@@ -130,6 +130,38 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     }
+    const updateCredential = async (userData) => {
+        setLoading(true);
+        console.log(userData)
+        try {
+            const response = await fetch(`${backendApi}/api/v1/auth/update`, {
+                'method': 'PATCH',
+                'headers': {
+                    'content-type': 'application/json',
+                    'accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+
+                },
+                'body': JSON.stringify(userData),
+            })
+            const data = await response.json();
+            console.log(data)
+            if(!response.ok) {
+                throw new Error(data.message || "Failed to update user")
+            }
+            setUser(data.user);
+            showAlert("User name updated", "success");
+
+   
+        } 
+        catch (error) {
+            console.error(error);
+            showAlert(error.message)
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     // fetch current user if jwt key exists in local storage
     useEffect(()=>{
@@ -142,7 +174,7 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, loading, show, setShow }}>
+        <AuthContext.Provider value={{ user, login, register, logout, updateCredential, loading, show, setShow }}>
             {children}
         </AuthContext.Provider> 
     )
