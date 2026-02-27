@@ -5,25 +5,13 @@ import { PlusCircleFill } from "react-bootstrap-icons"
 import CustomizeItemModal  from './customizeItem/CustomizeItemModal'
 
 function MenuItem() {
-  const { menuitems, sizes, milks } = useMenu();
+  const { menuitems } = useMenu();
   const [selectedItem, setSelectedItem] = useState(null)
 
   console.log(menuitems)
   const handleClick = (menuitem) =>{
     
-    setSelectedItem(
-      {
-        menuitem: {
-          _id: menuitem._id,
-          title: menuitem.title,
-          price: menuitem.price
-        },
-        sugar: menuitem.sugar,
-        temperature: menuitem.temperature,
-        sizeId: menuitem.sizeId,
-        milkId: menuitem.milkId
-        
-      })
+    setSelectedItem(menuitem)
   }
   const handleClose = () =>{
     setSelectedItem(null)

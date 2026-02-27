@@ -1,35 +1,33 @@
  import { Button, Spinner } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
-import {useAuth} from '../context/AuthContext'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import { useMenu } from '../context/MenuContext'
 
-const AddCartButton = ({item, handleClose}) => {
-    console.log(item)
+const AddCartButton = ({ 
+    menuitemId,
+    sizeId, 
+    toppings,
+    quantity, 
+    handleClose
+}) => {
+   console.log(toppings, sizeId)
     const { user, setShow } = useAuth();
     const { addCart, loading, setPendingItem } = useCart();
-    const { sizes, milks } = useMenu();
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const [price, setPrice]= useState(0)
-    
-    const milk = milks.find(m=>m._id === item.milkId);
-    const size = sizes.find(s=>s._id === item.sizeId);
+    const { sizes, ingredients } = useMenu();
+    const [price, setPrice] = useState(0);
 
     const handleClick = () => {
         console.log("adding item")
-        const selectedItem = {
-            menuitemId: item.menuitem._id,
-            milkId: item.milkId,
-            sizeId: item.sizeId,
-            sugar: item.sugar,
-            temperature: item.temperature,
-            quantity: item.quantity,
-       }
+    //     const selectedItem = {
+    //         menuitemId: item.menuitem._id,
+           
+    //         sizeId: item.sizeId,
+           
+    //         quantity: item.quantity,
+    //    }
        
-       // habdle no user login
+       // handle no user login
        if(user === null){
             setPendingItem(selectedItem)
             
@@ -43,15 +41,14 @@ const AddCartButton = ({item, handleClose}) => {
 
     }
     useEffect(()=>{
-        setPrice(item.quantity * (item.menuitem.price + size.price+ milk.price));
-    }, [item, size.price, milk.price])
+        if(!sizeId) setPrice(0);
+        else{
+        const size = sizes.find(s=>s._id === sizeId);
+        const count = toppings.reduce((total, topping)=> total+topping.qty, 0) 
+        setPrice(quantity * (size.price + count * size.perTopping));}
+    }, [toppings, sizeId])
 
-    // useEffect(()=> {
-    //     if(user && pendingItem){
-    //         addCart(pendingItem)
-    //         setPendingItem(null)
-    //     }
-    // },[user, pendingItem, addCart, handleClose]);
+
 
     return (
         <Button

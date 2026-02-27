@@ -1,43 +1,41 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-
+import {useAlert} from './AlertContext'
 const MenuContext = createContext();
 
 export const MenuProvider = ({ children }) => {
     const backendApi = 'http://localhost:3000'
     const [menuitems, setMenuitems] = useState([])
-    const [milks, setMilks] = useState([])
     const [sizes, setSizes] = useState([])
-    const [temperatures, setTemperatures] = useState([])
-    const [sugars, setSugars] = useState([])
+    const [ingredients, setIngredients] = useState([])
     const [loading, setLoading] = useState(false);
 
+    const {showAlert} = useAlert();
     const fetchHelper = async (apiUrl) => {
         const response = await fetch(apiUrl)
 
+        const data = await response.json();
+
         if(!response.ok){
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`)
+            throw new Error(`Error ${response.status}: ${data.message}`)
         }
-        return response.json()
+        return data;
     }
     const fetchMenuitemData = async () => {
         try {
-            const [menuitemData, milkData, sizeData, temperatureData, sugarData] = await Promise.all([
+            const [menuitemData, ingredientData, sizeData] = await Promise.all([
                 fetchHelper(`${backendApi}/api/v1/menuitems`),
-                fetchHelper(`${backendApi}/api/v1/milks`),
+                fetchHelper(`${backendApi}/api/v1/ingredients`),
                 fetchHelper(`${backendApi}/api/v1/sizes`),
-                fetchHelper(`${backendApi}/api/v1/temperatures`),
-                fetchHelper(`${backendApi}/api/v1/sugars`),
             ]);
 
             setMenuitems(menuitemData.menuitems)
-            setMilks(milkData.milks);
+            setIngredients(ingredientData.ingredients);
             setSizes(sizeData.sizes)
-            setTemperatures(temperatureData);
-            setSugars(sugarData)
+           
 
         } catch (error) {
             console.error("Error fetching menu data:", error);
+            showAlert(error.message)
         } finally {
             setLoading(false);
         }
@@ -52,14 +50,12 @@ export const MenuProvider = ({ children }) => {
         <MenuContext.Provider
             value={{
                 menuitems,
-                milks,
+                ingredients,
                 sizes,
-                temperatures,
-                sugars,
                 loading,
         }}
         >
-        {children}
+            {children}
         </MenuContext.Provider>
     );
     };

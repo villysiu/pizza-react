@@ -1,19 +1,19 @@
 import { useMenu } from "../context/MenuContext";
 import { Form } from 'react-bootstrap'
 
-const CustomizeSize = ({sizeId, setSizeId}) => {
+const CustomizeSize = ({sizeId, setSizeId, count}) => {
     const { sizes } = useMenu();
     console.log(sizes)
+
     return (
         <div>
-            <b>Drink Size</b>
+            <b>Size</b>
             <div>Required - Choose 1. </div>
             
-            <Form>
             {
                 sizes.map(sz=>{
-                    const priceText = sz.price > 0 ? `+$${sz.price}.00` : ""
-                    const labelText = `${sz.title} ${priceText}`
+                    const priceText = sz.price + sz.perTopping * count
+                    const labelText = `${sz.title} $${priceText.toFixed(2)}`
                     return(
                         
                         <Form.Check 
@@ -32,7 +32,7 @@ const CustomizeSize = ({sizeId, setSizeId}) => {
                 })
             }
 
-            </Form>     
+            
         </div>
     )
 }

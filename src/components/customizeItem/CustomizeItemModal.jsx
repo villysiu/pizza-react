@@ -1,44 +1,60 @@
-import { useState, useDispatch } from 'react'
+import { useState } from 'react'
 
 import CustomizeSize from './CustomizeSize'
-import CustomizeTemperature from './CustomizeTemperature'
-import CustomizeMilk from './CustomizeMilk'
-import CustomizeSugar from './CustomizeSugar'
+import CustomizeToppings from './CustomizeToppings'
 import Quantity from './Quantity'
 import AddCartButton from './AddCartButton'
 import UpdateCartButton from './UpdateCartButton'
-import {Modal, Button} from 'react-bootstrap'
+import {Modal, Container, Row} from 'react-bootstrap'
 
+import {useMenu} from '../context/MenuContext'
 
 const CustomizeItemModal = ({handleClose, item}) => {
 
     if (!item) return null;
     console.log(item)
-
-    const [temperature, setTemperature] = useState(item.temperature ) 
-    const [sizeId, setSizeId] =useState(item.sizeId)
-    const [milkId, setMilkId] = useState(item.milkId)
-    const [sugar, setSugar] = useState(item.sugar)
-    const [quantity, setQuantity] = useState(item.quantity || 1)
+    const { ingredients, sizes } = useMenu();
+    const {title, ingredientIds, _id: menuitemId} = item
+    const [sizeId, setSizeId] =useState(null)
+    const [toppings, setToppings] = useState(ingredientIds.map(ingredientId=> ({ingredientId, qty: 1})));
+    const [quantity, setQuantity] = useState(1)
 
     
+    console.log(toppings)
     return(
-            <Modal show={true} onHide={handleClose} size="lg"  >
+            <Modal show={true} onHide={handleClose} size="lg" >
             
                 <Modal.Header closeButton>
-                    <Modal.Title>Customize {item.menuitem.title} </Modal.Title>
+                    <Modal.Title>Customize {title} </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body >
-                    <CustomizeTemperature temperature={temperature} setTemperature={setTemperature} />
-                    <CustomizeSize sizeId={sizeId} setSizeId={setSizeId} />
-                    <CustomizeMilk milkId={milkId} setMilkId={setMilkId} />
-                    <CustomizeSugar sugar={sugar} setSugar={setSugar} />
+                    <Container>
+                        <CustomizeSize sizeId={sizeId} setSizeId={setSizeId} count={toppings.length} />
+        
+                        <div>
+                        
+                            <b>Toppings</b>
+                            <Row className='mx-0'>
+                            {
+                                ingredientIds.map(ingredientId=>(
+                                    <CustomizeToppings key={ingredientId} 
+                                                    ingredientId={ingredientId}
+                                                    toppings={toppings}
+                                                    setToppings={setToppings} />
+                                ))
+                            }
+                            </Row>
+                        </div>              
+                    </Container>
+                    
+                    {/* <CustomizeIngredients /> */}
+                    
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Quantity quantity={quantity} setQuantity={setQuantity} />
-                    { item.cartId ? 
+                    {/* { item.cartId ? 
                         <UpdateCartButton 
                             handleClose={handleClose} 
                             item = {{
@@ -51,18 +67,17 @@ const CustomizeItemModal = ({handleClose, item}) => {
                                 quantity: quantity
                             }}
                         />
-                        :
+                        // :*/}
+                        {}
                         <AddCartButton 
                             handleClose={handleClose} 
-                            item = {{
-                                menuitem: item.menuitem,
-                                temperature: temperature,
-                                sizeId: sizeId,
-                                milkId: milkId,
-                                sugar: sugar,
-                                quantity: quantity
-                            }} />
-                        }
+                            menuitemId = {menuitemId}
+                            sizeId = {sizeId}
+                            toppings = {toppings}
+                            quantity = {quantity}
+                    
+                         />
+                        {/* }  */}
                             
             
                 </Modal.Footer> 
