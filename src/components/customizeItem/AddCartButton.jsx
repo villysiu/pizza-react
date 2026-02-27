@@ -41,11 +41,12 @@ const AddCartButton = ({
 
     }
     useEffect(()=>{
-        if(!sizeId) setPrice(0);
+        if(!sizeId) 
+            setPrice(0);
         else{
-        const size = sizes.find(s=>s._id === sizeId);
-        const count = toppings.reduce((total, topping)=> total+topping.qty, 0) 
-        setPrice(quantity * (size.price + count * size.perTopping));}
+            const size = sizes.find(s=>s._id === sizeId);
+            const count = toppings.reduce((total, topping)=> total+topping.qty, 0) 
+            setPrice(quantity * (size.price + count * size.perTopping));}
     }, [toppings, sizeId])
 
 
@@ -53,7 +54,7 @@ const AddCartButton = ({
     return (
         <Button
             style={{ minWidth: "2rem" }}
-            disabled={loading}
+            disabled={loading || !sizeId}
             onClick={handleClick}
             className="ms-auto d-flex align-items-center justify-content-center"
         >

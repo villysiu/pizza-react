@@ -15,7 +15,7 @@ const CustomizeItemModal = ({handleClose, item}) => {
     console.log(item)
     const { ingredients, sizes } = useMenu();
     const {title, ingredientIds, _id: menuitemId} = item
-    const [sizeId, setSizeId] =useState(null)
+    const [sizeId, setSizeId] =useState("")
     const [toppings, setToppings] = useState(ingredientIds.map(ingredientId=> ({ingredientId, qty: 1})));
     const [quantity, setQuantity] = useState(1)
 
