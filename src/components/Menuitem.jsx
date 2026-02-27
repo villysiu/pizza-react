@@ -8,7 +8,6 @@ function MenuItem() {
   const { menuitems } = useMenu();
   const [selectedItem, setSelectedItem] = useState(null)
 
-  console.log(menuitems)
   const handleClick = (menuitem) =>{
     
     setSelectedItem(menuitem)

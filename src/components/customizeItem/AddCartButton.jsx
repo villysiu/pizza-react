@@ -7,11 +7,11 @@ import { useMenu } from '../context/MenuContext'
 const AddCartButton = ({ 
     menuitemId,
     sizeId, 
-    toppings,
+    ingredientDetails,
     quantity, 
     handleClose
 }) => {
-   console.log(toppings, sizeId)
+   console.log(ingredientDetails, sizeId)
     const { user, setShow } = useAuth();
     const { addCart, loading, setPendingItem } = useCart();
     const { sizes, ingredients } = useMenu();
@@ -19,13 +19,12 @@ const AddCartButton = ({
 
     const handleClick = () => {
         console.log("adding item")
-    //     const selectedItem = {
-    //         menuitemId: item.menuitem._id,
-           
-    //         sizeId: item.sizeId,
-           
-    //         quantity: item.quantity,
-    //    }
+        const selectedItem = {
+            menuitemId,
+            sizeId,
+            ingredientDetails: ingredientDetails,
+            quantity
+       }
        
        // handle no user login
        if(user === null){
@@ -45,9 +44,9 @@ const AddCartButton = ({
             setPrice(0);
         else{
             const size = sizes.find(s=>s._id === sizeId);
-            const count = toppings.reduce((total, topping)=> total+topping.qty, 0) 
+            const count = ingredientDetails.reduce((total, ingrDetail)=> total+ingrDetail.qty, 0) 
             setPrice(quantity * (size.price + count * size.perTopping));}
-    }, [toppings, sizeId])
+    }, [ingredientDetails, sizeId, quantity])
 
 
 
@@ -58,11 +57,9 @@ const AddCartButton = ({
             onClick={handleClick}
             className="ms-auto d-flex align-items-center justify-content-center"
         >
-        {loading ? (
-            <Spinner animation="border" size="sm" />
-        ) : (
+
             <>Add to Cart ${price.toFixed(2)}</>
-        )}
+
         </Button>
     )
 }

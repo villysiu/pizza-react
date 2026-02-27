@@ -13,14 +13,14 @@ const CustomizeItemModal = ({handleClose, item}) => {
 
     if (!item) return null;
     console.log(item)
-    const { ingredients, sizes } = useMenu();
+    const { sizes } = useMenu();
     const {title, ingredientIds, _id: menuitemId} = item
     const [sizeId, setSizeId] =useState("")
-    const [toppings, setToppings] = useState(ingredientIds.map(ingredientId=> ({ingredientId, qty: 1})));
+    const [ingredientDetails, setIngredientDetails] = useState(ingredientIds.map(ingredientId=> ({ingredientId, qty: 1})));
     const [quantity, setQuantity] = useState(1)
 
     
-    console.log(toppings)
+    console.log(ingredientDetails)
     return(
             <Modal show={true} onHide={handleClose} size="lg" >
             
@@ -30,18 +30,18 @@ const CustomizeItemModal = ({handleClose, item}) => {
 
                 <Modal.Body >
                     <Container>
-                        <CustomizeSize sizeId={sizeId} setSizeId={setSizeId} count={toppings.length} />
+                        <CustomizeSize sizeId={sizeId} setSizeId={setSizeId} count={ingredientDetails.length} />
         
                         <div>
                         
                             <b>Toppings</b>
                             <Row className='mx-0'>
                             {
-                                ingredientIds.map(ingredientId=>(
-                                    <CustomizeToppings key={ingredientId} 
-                                                    ingredientId={ingredientId}
-                                                    toppings={toppings}
-                                                    setToppings={setToppings} />
+                                ingredientDetails.map(ingrDetail=>(
+                                    <CustomizeToppings key={ingrDetail.ingredientId} 
+                                                    ingrDetail={ingrDetail}
+                                                    // ingredientDetails={ingredientDetails}
+                                                    setIngredientDetails={setIngredientDetails} />
                                 ))
                             }
                             </Row>
@@ -73,7 +73,7 @@ const CustomizeItemModal = ({handleClose, item}) => {
                             handleClose={handleClose} 
                             menuitemId = {menuitemId}
                             sizeId = {sizeId}
-                            toppings = {toppings}
+                            ingredientDetails = {ingredientDetails}
                             quantity = {quantity}
                     
                          />

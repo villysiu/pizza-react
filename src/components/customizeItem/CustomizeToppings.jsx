@@ -1,36 +1,31 @@
 import { useMenu } from '../context/MenuContext';
 import { useState, useEffect } from 'react'
 import { Button, Container, Row, Col } from 'react-bootstrap'
-const CustomizeToppings = ({ingredientId, toppings, setToppings}) => {
+const CustomizeToppings = ({ingrDetail,  setIngredientDetails}) => {
     
     const { ingredients } = useMenu();
+    const {ingredientId, qty} = ingrDetail;
     const ingredient = ingredients.find(ingr => ingr._id === ingredientId )
-     console.log(ingredient)
-
-    const currentTopping = toppings.find(t=> t.ingredientId === ingredientId)
-    const qty = currentTopping.qty
+    console.log(ingredient)
 
 
     const handleExtra = () => {
         // setFrontText('Extra');
 
-        setToppings(prevToppings =>
-            prevToppings.map(topping =>
-                topping.ingredientId === ingredientId ? { ...topping, qty: topping.qty+1 } : topping
+        setIngredientDetails(details =>
+            details.map(detail =>
+                detail.ingredientId === ingredientId ? { ...detail, qty: detail.qty+1 } : detail
             )
         )
     }
     const handleNone = () => {
         // setFrontText('No');
-        setToppings(prevToppings =>
-            prevToppings.map(topping =>
-                topping.ingredientId === ingredientId ? { ...topping, qty: topping.qty-1 } : topping
+        setIngredientDetails(details =>
+            details.map(detail =>
+                detail.ingredientId === ingredientId ? { ...detail, qty: detail.qty-1 } : detail
             )
         )
     }
-    // useEffect(()=>{
-    //     setToppingCount(ingredientData.length)
-    // }, [ingredientData])
     
     return (
         

@@ -29,12 +29,10 @@ const Quantity =({quantity, setQuantity})=>{
                     readOnly
                     className="text-center mx-1"
                     style={{
-    width: "3rem",
-    // border: "1px solid #000",
-    // borderRadius: "4px",
-    // backgroundColor: "#fff"
-  }}
-                    />
+                        width: "3rem",
+
+                    }}
+                />
                 <Button variant="link"
                         className="p-0 border-0" 
                         onClick={()=>handleClick('+')}  
