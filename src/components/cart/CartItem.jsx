@@ -6,31 +6,37 @@ import EditQuantityInput from './EditQuantityInput'
 import { useMenu } from '../context/MenuContext'
 
 const CartItem = ({ cart }) => {
-    // {
-	// 		"quantity": 1,
-	// 		"unitPrice": 5,
-	// 		"_id": "69992f2140affd8172d3bcb3",
-	// 		"createdBy": "69798350eeeb07d2f32fae2b",
-	// 		"temperature": "HOT",
-	// 		"sugar": "0%",
-	// 		"createdAt": "2026-02-21T04:05:53.549Z",
-	// 		"updatedAt": "2026-02-21T04:05:53.549Z",
-	// 		"__v": 0,
-	// 		"menuitemId": "6981457efd04af387993d3f2",
-	// 		"milkId": "69814750fd04af387993d404",
-	// 		"sizeId": "698142fbfd04af387993d3e4"
-	// 	},
+           // {
+    //     createdBy: 699fadf60405b0677accc775,
+    //     menuitemId: '69a06e258ff4d60635ebe77f',
+    //     sizeId: '699fb3f706698c69cddd8dae',
+    //     ingredientDetails: [
+    //         { ingredientId: '699fb6b05e5b866b91ad778f', qty: 2 },
+    //         { ingredientId: '699fb25906698c69cddd8da4', qty: 2 }
+    //     ],
+    //     quantity: 1,
+    //     unitPrice: 46
+    // }
 
-    const {menuitems, milks, sizes } = useMenu();
+    const {menuitems, sizes, ingredients } = useMenu();
     const menuitem = menuitems.find(m=>m._id === cart.menuitemId);
-    const milk = milks.find(m=>m._id === cart.milkId);
     const size = sizes.find(s=>s._id === cart.sizeId);
-    
+    const { ingredientDetails, quantity, unitPrice } = cart;
+
+    const IngredientHelper =( {ingredientDetail}) => {
+        const {ingredientId, qty} = ingredientDetail
+
+        const ingredient = ingredients.find(ingr => ingr._id === ingredientId)
+
+        return(
+            <div>
+            {qty===2 && "Extra " || qty===0 && "No "} {ingredient.title}
+            </div>
+        )
+    }
 
     return (
         <Row key={cart._id} className='px-2 py-3' style={{ borderBottom: '1px solid black' }}>
-            
-
             <Col xs={2} className='p-0'>
                 <Image 
                     // src={menuitem.imageUrl} 
@@ -49,29 +55,25 @@ const CartItem = ({ cart }) => {
                 <b>{menuitem.title}</b>
                 <div style={{fontSize: '12px'}}>
                     {size.title} 
-                    { milk.title !== 'NA' &&  <> | {milk.title}</>}
-                    { cart.sugar !== 'NA' &&  <> | {cart.sugar}</>}
-                    { cart.temperature !== 'NA' &&  <> | {cart.temperature}</>}
-            
+                    { ingredientDetails.map( ingredientDetail => {
+                        return <IngredientHelper ingredientDetail={ingredientDetail} />
+                    } )}
                 </div>
-                <div>@${cart.unitPrice.toFixed(2)}</div>
-            </Col>
-            <Col xs={3} className="d-flex align-items-center gap-2 px-0">
                 
-                {/* <EditQuantityInput cart={cart} /> */}
-                qty: {cart.quantity}
-                <CartEditIcon cart={{...cart,
-                                        menuitem: {
-                                            _id: menuitem._id,
-                                            title: menuitem.title,
-                                            price: menuitem.price
-                                        }
-                                    }} 
-                />
-                <CartDeleteIcon cartId={cart._id} />
+            </Col>
+            <Col xs={3} className="d-flex flex-column align-items-end px-0">
+                <div>@ ${unitPrice.toFixed(2)}</div>
+                <div>qty: {quantity}</div>
+                <div className="d-flex gap-2">
+                    <CartEditIcon 
+                        cart={{...cart}} 
+                    />
+                    <CartDeleteIcon cartId={cart._id} />
+                </div>
                 
             </Col>
         </Row>
     )
 }
+
 export default CartItem

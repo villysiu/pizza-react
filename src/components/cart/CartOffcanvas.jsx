@@ -13,6 +13,7 @@ const CartOffcanvas = () => {
     const { carts, subtotal, show, setShow, loading } = useCart();
     const { cartAlert } = useAlert();
     console.log( carts)
+
     const count = carts.reduce((total, c )=>total+ c.quantity, 0)
     return (
         <Offcanvas  show={show} onHide={() => setShow(false)} 
@@ -26,8 +27,6 @@ const CartOffcanvas = () => {
                         boxShadow:'0 10px 30px rgba(0,0,0,0.3)',
                     }} 
         >
-
-
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>Your Cart ({count} items)</Offcanvas.Title>
             </Offcanvas.Header>
@@ -36,13 +35,15 @@ const CartOffcanvas = () => {
             <>
 
                 <Offcanvas.Body>
-                    {cartAlert && <Alert
-                    key={cartAlert.id}
-                    variant={cartAlert.variant}
-                    style={{textAlign: 'left'}}
-                >
-                    {cartAlert.message}
-                </Alert>}
+                    {cartAlert && 
+                        <Alert
+                            key={cartAlert.id}
+                            variant={cartAlert.variant}
+                            style={{textAlign: 'left'}}
+                        >
+                            {cartAlert.message}
+                        </Alert>
+                    }
 
                 {  carts.map(cart => <CartItem key={cart._id} cart={cart} />) }
                 </Offcanvas.Body>
