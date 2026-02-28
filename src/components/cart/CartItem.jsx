@@ -57,7 +57,7 @@ const CartItem = ({ cart }) => {
                 <div style={{fontSize: '12px'}}>
                     {size.title} 
                     { ingredientDetails.map( ingredientDetail => {
-                        return <IngredientHelper ingredientDetail={ingredientDetail} />
+                        return <IngredientHelper key={ingredientDetail.ingredientId} ingredientDetail={ingredientDetail} />
                     } )}
                 </div>
                 
