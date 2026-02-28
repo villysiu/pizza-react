@@ -5,38 +5,43 @@ import {useAuth} from '../context/AuthContext'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMenu } from '../context/MenuContext'
 
-const UpdateCartButton = ({item, handleClose}) => {
-    console.log(item)
+const UpdateCartButton = ({
+    cartId,
+    sizeId, 
+    ingredientDetails,
+    quantity, 
+    handleClose
+}) => {
+
     const { user } = useAuth();
     const { updateCart, loading } = useCart();
-    const { sizes, milks } = useMenu();
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { sizes } = useMenu();
 
-    const [price, setPrice]= useState(0);
-    const milk = milks.find(m=>m._id === item.milkId);
-    const size = sizes.find(s=>s._id === item.sizeId);
+    const [subtotal, setSubtotal]= useState(0);
 
     const handleClick = () => {
         console.log("update item")
-       // habdle no user login
+        const selectedItem = {
+            sizeId,
+            ingredientDetails,
+            quantity
+       }
+       // handle no user login
        if(user === null){
             return;
        }
-       updateCart({
-            cartId: item.cartId,
-            milkId: item.milkId,
-            sizeId: item.sizeId,
-            sugar: item.sugar,
-            temperature: item.temperature,
-            quantity: item.quantity,
-       });
-
+       updateCart({cartId: cartId, selectedItem} )
        handleClose();
     }
-    useEffect(()=>{
-        setPrice(item.quantity * (item.menuitem.price + size.price+ milk.price));
-    }, [item])
+       useEffect(()=>{
+        if(!sizeId) 
+            setSubtotal(0);
+        else{
+            const size = sizes.find(s=>s._id === sizeId);
+            const count = ingredientDetails.reduce((total, ingrDetail)=> total+ingrDetail.qty, 0) 
+            setSubtotal(quantity * (size.price + count * size.perTopping));}
+    }, [ingredientDetails, sizeId, quantity])
+
 
     return (
         <Button
@@ -45,11 +50,9 @@ const UpdateCartButton = ({item, handleClose}) => {
             onClick={handleClick}
             className="ms-auto d-flex align-items-center justify-content-center"
         >
-        {loading ? (
-            <Spinner animation="border" size="sm" />
-        ) : (
-            <>Update cart ${price.toFixed(2)}</>
-        )}
+    
+            Update cart ${subtotal.toFixed(2)}
+
         </Button>
     )
 }

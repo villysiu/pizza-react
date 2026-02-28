@@ -7,7 +7,7 @@ const CartDeleteIcon = ({cartId}) =>{
 
     const { deleteCart } = useCart();
     return (
-        <Nav.Link as={Link} onClick={()=>deleteCart(cartId)}>
+        <Nav.Link as={Link} className='delete-icon' onClick={()=>deleteCart(cartId)}>
             <Trash />
         </Nav.Link>
     )

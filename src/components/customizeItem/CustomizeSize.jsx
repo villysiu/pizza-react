@@ -1,9 +1,11 @@
 import { useMenu } from "../context/MenuContext";
 import { Form } from 'react-bootstrap'
 
-const CustomizeSize = ({sizeId, setSizeId, count}) => {
+const CustomizeSize = ({sizeId, setSizeId, ingredientDetails}) => {
     const { sizes } = useMenu();
-    console.log(sizes)
+    
+    const count = ingredientDetails.reduce((sum, ingrDetail)=>sum+ingrDetail.qty, 0)
+
 
     return (
         <div>

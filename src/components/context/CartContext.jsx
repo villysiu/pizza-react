@@ -79,35 +79,34 @@ export const CartProvider = ({ children }) => {
             setLoading(false)
         }
     }
-    const updateCart = async (cart) => {
+    const updateCart = async (item) => {
         console.log("update cart")
-        console.log(cart);
+        console.log(item);
         setLoading(true)
 
         try {
             await new Promise((resolve)=>setTimeout(resolve, 2000))
                 
-            const response = await fetch(`${backendApi}/api/v1/carts/${cart.cartId}`, {
+            const response = await fetch(`${backendApi}/api/v1/carts/${item.cartId}`, {
                 'method': 'PATCH',
                 'headers': {
                     'content-type': 'application/json',
                     'accept': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
-                'body': JSON.stringify(cart)
+                'body': JSON.stringify(item.selectedItem)
             })
 
 
             const data = await response.json();
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to update cart item")
+                throw new Error(data.message || "Failed to update cart item")
             }
             await getCarts()   
             createCartAlert("Item updated", 'success')
 
         } catch (error) {
-            console.error(error.message)
-            createCartAlert(error.msg, 'danger')
+            createCartAlert(error.message, 'danger')
         }
         finally {
             setLoading(false)

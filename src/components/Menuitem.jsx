@@ -10,7 +10,13 @@ function MenuItem() {
 
   const handleClick = (menuitem) =>{
     
-    setSelectedItem(menuitem)
+    setSelectedItem({
+      menuitemId: menuitem._id,
+      sizeId: "",
+      ingredientDetails: menuitem.ingredientIds.map(
+                            ingredientId=> ({ingredientId, qty: 1})),
+      quantity: 1
+    })
   }
   const handleClose = () =>{
     setSelectedItem(null)

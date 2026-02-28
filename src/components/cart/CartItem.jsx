@@ -7,6 +7,7 @@ import { useMenu } from '../context/MenuContext'
 
 const CartItem = ({ cart }) => {
            // {
+        //    _id: 584837
     //     createdBy: 699fadf60405b0677accc775,
     //     menuitemId: '69a06e258ff4d60635ebe77f',
     //     sizeId: '699fb3f706698c69cddd8dae',
@@ -65,9 +66,7 @@ const CartItem = ({ cart }) => {
                 <div>@ ${unitPrice.toFixed(2)}</div>
                 <div>qty: {quantity}</div>
                 <div className="d-flex gap-2">
-                    <CartEditIcon 
-                        cart={{...cart}} 
-                    />
+                    <CartEditIcon cart={cart} />
                     <CartDeleteIcon cartId={cart._id} />
                 </div>
                 
