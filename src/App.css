@@ -109,7 +109,9 @@
 }
 
 .edit-icon:hover,
-.delete-icon:hover {
+.delete-icon:hover,
+.user-icon:hover,
+.cart-icon:hover {
   transform: scale(1.15);
   stroke-width: 2.5;
 }

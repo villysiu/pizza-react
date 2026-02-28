@@ -24,7 +24,7 @@ const CartIcon = () => {
         <>
        
         <Nav.Link onClick={()=>setShow(true)} style={{cursor: 'pointer'}}>
-            <Cart size={20} className="me-2" />
+            <Cart size={20} className="me-2 cart-icon" />
         </Nav.Link>
 
         <CartOffcanvas />
