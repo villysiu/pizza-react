@@ -28,7 +28,7 @@ const Orders = () => {
                 <Row key='all-order' className='text-start py-4'>
                     <Col xs={12} ><h3>Your Orders</h3></Col>
                 </Row>
-                { orders.map((order) => <Order key={order.id} order={order} />) }
+                { orders.map((order) => <Order key={order._id} order={order} />) }
             </Container>
         </>
         

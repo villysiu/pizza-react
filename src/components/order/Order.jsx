@@ -26,7 +26,7 @@ const Order = ({order}) => {
     }
     return(
     
-        <React.Fragment key={order._id}>
+        <>
             <Row className='order-row py-3' onClick={()=>handleClick(order._id)}> 
                 <Col className='text-start'>
                     Order Date: {formattedDate}
@@ -42,19 +42,19 @@ const Order = ({order}) => {
                 </Col>
             </Row>
             { 
-                show === order._id && 
-                    <React.Fragment key={`details-${order._id}`}>
+                show === order._id && order.orderDetails && 
+                    <>
                     <Row  className='border-bottom py-2'>
-                        <Col xs={4} className='text-start'>Beverage</Col>
-                        <Col xs={4} className='text-start'>Options</Col>
+                        <Col xs={4} className='text-start'>Pizza</Col>
+                        <Col xs={4} className='text-start'>Toppings</Col>
                         <Col xs={2} className='text-end'>Quantity</Col>
                         <Col xs={2} className='text-end'>Unit Price</Col>
                     </Row>
-                    { order && order.orderDetails && order.orderDetails.map(detail => <OrderDetails key={detail._id} detail={detail} />)  }
-                </React.Fragment> 
+                    { order.orderDetails.map(detail => <OrderDetails key={detail._id} detail={detail} />)  }
+                </> 
             }
 
-        </React.Fragment>
+        </>
         )
 }
 export default Order

@@ -5,19 +5,22 @@ import { useState, useEffect } from 'react'
 
 const OrderDetails = ({detail}) => {
 
-    const { menuitems, milks, sizes } = useMenu();
+    const { menuitems, sizes, ingredients } = useMenu();
 
     const menuitem = menuitems.find(m=> m._id === detail.menuitemId)
-    const milk = milks.find(m=> m._id === detail.milkId)
     const size = sizes.find(s=> s._id === detail.sizeId)
+    const {ingredientDetails} = detail
     return (
-        <Row key={detail._id} className='border-bottom'>
+        <Row className='border-bottom'>
             <Col xs={4} className='text-start'>{menuitem.title}</Col>
-            <Col xs={4} className='text-start'>
-                {size.title} 
-                { milk.title !== 'NA' &&  <> | {milk.title}</>}
-                { detail.sugar !== 'NA' &&  <> | {detail.sugar}</>}
-                { detail.temperature !== 'NA' &&  <> | {detail.temperature}</>}
+            <Col xs={4} className='text-start'>{size.title} 
+            {
+                ingredientDetails.map((ingredientDetail) => {
+                    const {ingredientId, qty} = ingredientDetail
+                    const ingredient = ingredients.find((ingr)=>ingr._id === ingredientId)
+                    return  <div key={ingredientDetail._id} className="small">{(qty===0 && "No ") || (qty===2 && "Extra ")}{ingredient.title}</div>
+                })
+            }
             </Col>
             <Col xs={2} className='text-end'>{detail.quantity}</Col>
             <Col xs={2} className='text-end'>${detail.unitPrice.toFixed(2)} </Col>

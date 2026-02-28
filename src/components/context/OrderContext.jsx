@@ -94,7 +94,7 @@ export const OrderProvider = ({ children }) => {
             })
             const data = await response.json()
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to create new order");
+                throw new Error(data.message || "Failed to create new order");
             }
             console.log('new order added:', data);
             
@@ -103,7 +103,6 @@ export const OrderProvider = ({ children }) => {
             showAlert("Order placed", 'success')
 
         } catch (error) {
-            console.error(error);
             showAlert(error.message, 'danger')
         }
         finally{

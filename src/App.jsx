@@ -25,7 +25,7 @@ function App(){
   return (
     <>
       {(
-        // orderLoading || 
+        orderLoading || 
         cartLoading || 
         authLoading) && <FullScreenSpinner /> }
       <NavigationBar />
