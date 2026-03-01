@@ -28,12 +28,13 @@ function MenuItem() {
       <h1>Menu Items</h1>
       <Row>
         {menuitems.map((menuitem) => (
-          <Col md={4} key={menuitem._id} className="mb-3">
+          <Col md={6} key={menuitem._id} className="mb-3">
             <Card onClick={() => handleClick(menuitem)}>
               <Card.Body style={{'padding': 0, cursor: 'pointer'}}>
                 <Row>
                   <Col md={8}>
-                    <Card.Text className='text-start'>{menuitem.title}</Card.Text>
+                    <Card.Title className='text-start'>{menuitem.title}</Card.Title>
+                    <Card.Text className='text-start'>{menuitem.description} </Card.Text>
                   </Col>
                   <Col md={4} className="text-end" style={{ 'paddingLeft': 0}}>
                     <div style={{ position: "relative", width: "100%"}}>
