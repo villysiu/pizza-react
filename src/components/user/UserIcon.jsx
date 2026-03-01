@@ -30,11 +30,15 @@ const UserIcon = () => {
         )
     }
     return (
-        <div className='user-icon d-flex align-items-center me-4'>
+        // <div className='user-icon d-flex align-items-center me-4'>
         <Nav className="ms-auto">
             <NavDropdown 
                 as="div"
-                title={<PersonCircle size={20} />}
+                title={
+                    <span className="d-flex align-items-center gap-2">
+                        <PersonCircle size={20} />
+                        {user.name}
+                    </span>}
                 id="user-dropdown"
                 align='end'
                 
@@ -51,8 +55,7 @@ const UserIcon = () => {
                 </NavDropdown.Item>
             </NavDropdown>
         </Nav>
-        {user.name}
-        </div>
+
     )
     
 }
