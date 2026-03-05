@@ -47,7 +47,7 @@ const EditPassword = () =>{
                 <Form.Label ><b>Current Password</b></Form.Label>
                 <PasswordInput  password={currPassword} 
                                 setPassword={setCurrPassword} 
-                                asswordError={currPasswordError} 
+                                passwordError={currPasswordError} 
                                 setPasswordError={setCurrPasswordError} 
                 />
 
