@@ -30,8 +30,7 @@ export const OrderProvider = ({ children }) => {
             })
             const data = await response.json()
             if(!response.ok) {
-                console.log("Failed to fetch orders");
-                throw new Error(data.msg);
+                throw new Error(data.message || "Failed to get orders");
             }
             setOrders(data.orders)
             
@@ -61,9 +60,9 @@ export const OrderProvider = ({ children }) => {
             })
             const data = await response.json()
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to create new order");
+                throw new Error(data.message || "Failed to get order details");
             }
-            console.log('order added:', data);
+            
             
             // replace order with fetched order with orderdetails to 
             setOrders(orders.map(order =>
@@ -113,7 +112,7 @@ export const OrderProvider = ({ children }) => {
     const deleteOrder = async(orderId) => {
         console.log("delete order")
         setLoading(true)
-await new Promise((resolve)=>setTimeout(resolve, 2000))
+        await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {        
             const response = await fetch(`${backendApi}/api/v1/orders/${orderId}`, {
                 'method': 'DELETE',
@@ -124,7 +123,7 @@ await new Promise((resolve)=>setTimeout(resolve, 2000))
 
             const data = await response.json();
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to delete order")
+                throw new Error(data.message || "Failed to delete order");
             }
             await getOrders()
             

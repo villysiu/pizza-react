@@ -3,7 +3,7 @@ import React from 'react'
 import { Routes, Route } from "react-router-dom"
 
 import Home from "./components/Home"
-import Menuitem from "./components/Menuitem"
+import Menuitem from "./components/menuitem/Menuitem"
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Profile from './components/user/Profile'
@@ -15,7 +15,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute"
 import { useAuth } from './components/context/AuthContext'
 import { useCart } from './components/context/CartContext'
 import { useOrder } from './components/context/OrderContext'
-import FullScreenSpinner from './components/routes/FullScreenSpinner'
+import FullScreenSpinner from './components/FullScreenSpinner'
 
 function App(){
   const { loading: cartLoading } = useCart();
@@ -31,7 +31,7 @@ function App(){
       <NavigationBar />
       <AlertBar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Menuitem />} />
         <Route path="/menu" element={<Menuitem />} />
        
         <Route

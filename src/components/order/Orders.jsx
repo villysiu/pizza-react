@@ -6,7 +6,6 @@ import Order from './Order'
 import { Dash, Plus } from 'react-bootstrap-icons'
 
 const Orders = () => {
-
     const { orders, getOrders, loading } = useOrder();
 
     console.log(orders)

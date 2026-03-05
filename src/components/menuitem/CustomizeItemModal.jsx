@@ -47,7 +47,6 @@ const CustomizeItemModal = ({handleClose, item}) => {
                                 ingredientDetails.map(ingrDetail=>(
                                     <CustomizeToppings key={ingrDetail.ingredientId} 
                                                     ingrDetail={ingrDetail}
-                                                    // ingredientDetails={ingredientDetails}
                                                     setIngredientDetails={setIngredientDetails} />
                                 ))
                             }

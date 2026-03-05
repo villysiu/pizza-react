@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { Container, Card, Row, Col, Button, Spinner, Alert } from "react-bootstrap"
-import { useMenu } from "./context/MenuContext";
+import { useMenu } from "../context/MenuContext";
 import { PlusCircleFill } from "react-bootstrap-icons"
-import CustomizeItemModal  from './customizeItem/CustomizeItemModal'
+import CustomizeItemModal  from './CustomizeItemModal'
 
 function MenuItem() {
   const { menuitems } = useMenu();
@@ -28,15 +28,15 @@ function MenuItem() {
       <h1>Menu Items</h1>
       <Row>
         {menuitems.map((menuitem) => (
-          <Col md={6} key={menuitem._id} className="mb-3">
-            <Card onClick={() => handleClick(menuitem)}>
-              <Card.Body style={{'padding': 0, cursor: 'pointer'}}>
-                <Row>
-                  <Col md={8}>
+          <Col xs={12} md={6} key={menuitem._id} className="mb-3">
+            <Card onClick={() => handleClick(menuitem)} className='p-0'>
+              <Card.Body className='p-0' style={{ cursor: 'pointer' }}>
+                <Row className="g-0">
+                  <Col md={8} className="p-3">
                     <Card.Title className='text-start'>{menuitem.title}</Card.Title>
                     <Card.Text className='text-start'>{menuitem.description} </Card.Text>
                   </Col>
-                  <Col md={4} className="text-end" style={{ 'paddingLeft': 0}}>
+                  <Col md={4} className="text-end">
                     <div style={{ position: "relative", width: "100%"}}>
                       <Card.Img 
                         // src={item.imageUrl} 
@@ -48,11 +48,12 @@ function MenuItem() {
                           objectFit: "cover"}}
                       />
          
-                        <PlusCircleFill style={{
+                        <PlusCircleFill size={25} style={{
                           position: 'absolute',
                           bottom: '6px',
                           right: '6px',
-                          cursor: 'pointer'
+                          cursor: 'pointer',
+                          color: 'white'
                           }} />
                     </div>
                   </Col>

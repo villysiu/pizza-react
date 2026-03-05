@@ -128,7 +128,7 @@ export const CartProvider = ({ children }) => {
 
             const data = await response.json();
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to delete cart item")
+                throw new Error(data.msg || "Failed to delete cart")
             }
             await getCarts()
             createCartAlert("Item removed", 'success')

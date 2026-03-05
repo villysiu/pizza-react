@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { PencilSquare } from 'react-bootstrap-icons'
 import { Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import CustomizeItemModal  from '../customizeItem/CustomizeItemModal'
+import CustomizeItemModal  from '../menuitem/CustomizeItemModal'
 
 const CartEditIcon = ({cart}) =>{
 

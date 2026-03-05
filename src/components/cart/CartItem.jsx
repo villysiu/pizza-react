@@ -63,7 +63,7 @@ const CartItem = ({ cart }) => {
                 
             </Col>
             <Col xs={3} className="d-flex flex-column align-items-end px-0">
-                <div>@ ${unitPrice.toFixed(2)}</div>
+                <div className="d-flex  text-nowrap">@ ${unitPrice.toFixed(2)}</div>
                 <div>qty: {quantity}</div>
                 <div className="d-flex gap-2">
                     <CartEditIcon cart={cart} />
