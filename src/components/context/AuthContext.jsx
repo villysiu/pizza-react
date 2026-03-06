@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
-    const backendApi = 'http://localhost:3000'
+    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         console.log('IN LOGIN')
             console.log(userData)
         try {
-            const response = await fetch('http://localhost:3000/api/v1/auth/login', {
+            const response = await fetch(`${BACKEND_API}/api/v1/auth/login`, {
                 'method': "POST",
                 'headers': {
                     'content-type': 'application/json',
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         console.log(userData)
         try {
-            const response = await fetch('http://localhost:3000/api/v1/auth/register', {
+            const response = await fetch(`${BACKEND_API}/api/v1/auth/register`, {
                 'method': "POST",
                 'headers': {
                     'content-type': 'application/json',
@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         setLoading(true);
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            // await new Promise((resolve)=>setTimeout(resolve, 2000))
             
             setUser(null)
             
@@ -110,7 +110,7 @@ export const AuthProvider = ({ children }) => {
         }
         // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try{
-            const response = await fetch('http://localhost:3000/api/v1/auth/me',{
+            const response = await fetch(`${BACKEND_API}/api/v1/auth/me`,{
                 'method': "GET",
                 'headers': {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -137,8 +137,8 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         console.log(userData)
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 3000))
-            const response = await fetch(`${backendApi}/api/v1/auth`, {
+            // await new Promise((resolve)=>setTimeout(resolve, 3000))
+            const response = await fetch(`${BACKEND_API}/api/v1/auth`, {
                 'method': 'PATCH',
                 'headers': {
                     'content-type': 'application/json',

@@ -9,6 +9,7 @@ import Signup from './components/auth/Signup'
 import Profile from './components/user/Profile'
 import Orders from "./components/order/Orders"
 import NavigationBar from "./components/navbar/Navbar"
+import Footer from "./components/Footer"
 import AlertBar from "./components/navbar/AlertBar"
 import ProtectedRoute from "./components/routes/ProtectedRoute"
 
@@ -28,6 +29,7 @@ function App(){
         orderLoading || 
         cartLoading || 
         authLoading) && <FullScreenSpinner /> }
+
       <NavigationBar />
       <AlertBar />
       <Routes>
@@ -54,6 +56,7 @@ function App(){
         />
 
       </Routes>
+      <Footer />
     </>
   )
 }

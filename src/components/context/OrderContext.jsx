@@ -6,7 +6,7 @@ const OrderContext = createContext();
 
 
 export const OrderProvider = ({ children }) => {
-    const backendApi = 'http://localhost:3000'
+    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
     const { user } = useAuth();
     const { showAlert } = useAlert();
@@ -19,9 +19,9 @@ export const OrderProvider = ({ children }) => {
 
     const getOrders = async () => {
         setLoading(true)
-        await new Promise((resolve)=>setTimeout(resolve, 2000))
+        // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {
-            const response = await fetch(`${backendApi}/api/v1/orders`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/orders`, {
                 'method': "GET",
                 'headers': {
                     'accept': 'application/json',
@@ -48,11 +48,11 @@ export const OrderProvider = ({ children }) => {
     const getOrderDetails = async (orderId) => {
         setLoading(true)
         setShow(null)
-        await new Promise((resolve)=>setTimeout(resolve, 2000))
+        // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            await new Promise((resolve)=>out(resolve, 2000))
             
-            const response = await fetch(`${backendApi}/api/v1/orders/${orderId}`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/orders/${orderId}`, {
                 'method': "GET",
                 'headers': {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -83,9 +83,9 @@ export const OrderProvider = ({ children }) => {
 
         setLoading(true)
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            // await new Promise((resolve)=>setTimeout(resolve, 2000))
             
-            const response = await fetch(`${backendApi}/api/v1/orders`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/orders`, {
                 'method': "POST",
                 'headers': {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -112,9 +112,9 @@ export const OrderProvider = ({ children }) => {
     const deleteOrder = async(orderId) => {
         console.log("delete order")
         setLoading(true)
-        await new Promise((resolve)=>setTimeout(resolve, 2000))
+        // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {        
-            const response = await fetch(`${backendApi}/api/v1/orders/${orderId}`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/orders/${orderId}`, {
                 'method': 'DELETE',
                 'headers': {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`

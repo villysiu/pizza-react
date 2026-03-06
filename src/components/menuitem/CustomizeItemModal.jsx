@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import CustomizeSize from './CustomizeSize'
 import CustomizeToppings from './CustomizeToppings'
+import ExtraIngredients from './ExtraIngredients'
 import Quantity from './Quantity'
 import AddCartButton from './AddCartButton'
 import UpdateCartButton from './UpdateCartButton'
@@ -21,7 +22,7 @@ const CustomizeItemModal = ({handleClose, item}) => {
 //                             ingredientId=> ({ingredientId, qty: 1})),
 //       quantity: 1
 //     }
-    const { sizes, menuitems } = useMenu();
+    const { sizes, menuitems, ingredients } = useMenu();
     const [sizeId, setSizeId] =useState(item.sizeId)
     const [ingredientDetails, setIngredientDetails] = useState(item.ingredientDetails);
     const [quantity, setQuantity] = useState(item.quantity)
@@ -53,9 +54,7 @@ const CustomizeItemModal = ({handleClose, item}) => {
                             </Row>
                         </div>              
                     </Container>
-                    
-                    {/* <CustomizeIngredients /> */}
-                    
+                
                 </Modal.Body>
 
                 <Modal.Footer>

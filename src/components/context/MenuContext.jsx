@@ -3,7 +3,7 @@ import {useAlert} from './AlertContext'
 const MenuContext = createContext();
 
 export const MenuProvider = ({ children }) => {
-    const backendApi = 'http://localhost:3000'
+    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
     const [menuitems, setMenuitems] = useState([])
     const [sizes, setSizes] = useState([])
     const [ingredients, setIngredients] = useState([])
@@ -23,9 +23,9 @@ export const MenuProvider = ({ children }) => {
     const fetchMenuitemData = async () => {
         try {
             const [menuitemData, ingredientData, sizeData] = await Promise.all([
-                fetchHelper(`${backendApi}/api/v1/menuitems`),
-                fetchHelper(`${backendApi}/api/v1/ingredients`),
-                fetchHelper(`${backendApi}/api/v1/sizes`),
+                fetchHelper(`${BACKEND_API}/api/v1/menuitems`),
+                fetchHelper(`${BACKEND_API}/api/v1/ingredients`),
+                fetchHelper(`${BACKEND_API}/api/v1/sizes`),
             ]);
 
             setMenuitems(menuitemData.menuitems)

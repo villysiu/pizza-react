@@ -6,7 +6,7 @@ const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
-    const backendApi = 'http://localhost:3000'
+    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
 
     const { user } = useAuth();
     const { createCartAlert, showAlert } = useAlert();
@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
         setLoading(true)
 
         try {
-            const response = await fetch(`${backendApi}/api/v1/carts`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/carts`, {
                 'method': "GET",
                 'headers': {
                     'accept': 'application/json',
@@ -49,9 +49,9 @@ export const CartProvider = ({ children }) => {
         console.log(item)
         setLoading(true)
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            // await new Promise((resolve)=>setTimeout(resolve, 2000))
             
-            const response = await fetch(`${backendApi}/api/v1/carts`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/carts`, {
                 'method': "POST",
                 'headers': {
                     'content-type': 'application/json',
@@ -85,9 +85,9 @@ export const CartProvider = ({ children }) => {
         setLoading(true)
 
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            // await new Promise((resolve)=>setTimeout(resolve, 2000))
                 
-            const response = await fetch(`${backendApi}/api/v1/carts/${item.cartId}`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/carts/${item.cartId}`, {
                 'method': 'PATCH',
                 'headers': {
                     'content-type': 'application/json',
@@ -117,9 +117,9 @@ export const CartProvider = ({ children }) => {
         setLoading(true)
 
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 2000))
+            // await new Promise((resolve)=>setTimeout(resolve, 2000))
                 
-            const response = await fetch(`${backendApi}/api/v1/carts/${cartId}`, {
+            const response = await fetch(`${BACKEND_API}/api/v1/carts/${cartId}`, {
                 'method': 'DELETE',
                 'headers': {
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
