@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useAlert } from './AlertContext'
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
     const backendApi = 'http://localhost:3000'
@@ -11,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [show, setShow] = useState(''); // controle login/signup modal
 
     const { showAlert } = useAlert();
+    const navigate = useNavigate();
 
     const login = async(userData) => {
         setLoading(true);
@@ -28,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if(!response.ok) {            
-                throw new Error(data.msg || "faileed to login");
+                throw new Error(data.message || "Failed to login");
             }
 
             setUser(data.user)
@@ -61,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
             const data = await response.json();
             if(!response.ok) {            
-                throw new Error(data.msg || 'failed to register user');
+                throw new Error(data.message || 'failed to register user');
             }
 
             setUser(data.user)
@@ -80,15 +83,15 @@ export const AuthProvider = ({ children }) => {
         }
     }
     const logout = async () => {
+        setLoading(true);
         try {
-            setLoading(true);
             await new Promise((resolve)=>setTimeout(resolve, 2000))
             
             setUser(null)
             
             localStorage.removeItem("token");
             showAlert("Goodbye", "success")
-            
+        
         } catch (error) {
             // no error not api
             console.error(error)
@@ -118,7 +121,7 @@ export const AuthProvider = ({ children }) => {
             }
             const data = await response.json()
             if(!response.ok) {
-                throw new Error(data.msg || "Failed to fetch current user")
+                throw new Error(data.message || "Failed to fetch current user")
             }
             setUser(data.user)
         }
@@ -134,8 +137,8 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         console.log(userData)
         try {
-            await new Promise((resolve)=>setTimeout(resolve, 10000))
-            const response = await fetch(`${backendApi}/api/v1/auth/update`, {
+            await new Promise((resolve)=>setTimeout(resolve, 3000))
+            const response = await fetch(`${backendApi}/api/v1/auth`, {
                 'method': 'PATCH',
                 'headers': {
                     'content-type': 'application/json',
@@ -146,7 +149,7 @@ export const AuthProvider = ({ children }) => {
                 'body': JSON.stringify(userData),
             })
             const data = await response.json();
-            console.log(data)
+            // console.log(data)
             if(!response.ok) {
                 throw new Error(data.message || "Failed to update user")
             }
@@ -176,7 +179,7 @@ export const AuthProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, updateCredential, loading, show, setShow }}>
+        <AuthContext.Provider value={{ user, login, register, logout, updateCredential, loading, setLoading, show, setShow }}>
             {children}
         </AuthContext.Provider> 
     )

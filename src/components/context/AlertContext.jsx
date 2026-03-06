@@ -18,7 +18,7 @@ export const AlertProvider = ({ children }) => {
             const updatedAlerts = [...currentAlerts, {id, message, variant}];
             setTimeout(()=>{
                 setAlerts(arr=>arr.filter(item => item.id !== id));
-            }, 10000);
+            }, 3000);
 
             return updatedAlerts;
         })
@@ -28,7 +28,7 @@ export const AlertProvider = ({ children }) => {
 
         setTimeout(() => {
             setCartAlert(null);
-        }, 5000);
+        }, 3000);
     };
         
         

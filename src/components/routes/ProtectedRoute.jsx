@@ -8,14 +8,20 @@ const ProtectedRoute = ({children}) => {
     const { showAlert } = useAlert();
     const location = useLocation();
 
+    console.log(location)
+    console.log("loading;", loading)
+    
+    useEffect(() => {
+        if (!loading && !user) {
+            showAlert("Authentication required. Return to homepage", "warning");
+        }
+    }, [user, loading, showAlert]);
 
         if(loading)
             return;
         if (!user) {
-            
-            showAlert("Authentication required. Return to homepage", "warning");
             return <Navigate to="/" state={{ from: location }} replace />;
-            
+
             
         }
 

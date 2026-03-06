@@ -9,8 +9,9 @@ const UserIcon = () => {
     const navigate = useNavigate();
     const { user, logout, loading, setShow, show } = useAuth();
 
-    const handleLogout = (e) => {
+    const handleLogout = async (e) => {
         e.preventDefault();
+       navigate("/", { replace: true, state: { logout: true } });
         logout();
       
     };
