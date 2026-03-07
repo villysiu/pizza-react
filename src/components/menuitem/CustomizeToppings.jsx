@@ -6,7 +6,7 @@ const CustomizeToppings = ({ingrDetail,  setIngredientDetails}) => {
     const { ingredients } = useMenu();
     const {ingredientId, qty} = ingrDetail;
     const ingredient = ingredients.find(ingr => ingr._id === ingredientId )
-    console.log(ingredient)
+
 
 
     const handleExtra = () => {

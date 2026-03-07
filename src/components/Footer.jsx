@@ -1,7 +1,9 @@
  import {EnvelopeAtFill, Github, Linkedin } from 'react-bootstrap-icons'
 const Footer = () => {
+    const BACKEND_API = import.meta.env.VITE_BACKEND_API;
+
     return (
-        <>
+        <div className='mt-3'>
             <div><b>@2026 Pizza Villy Siu</b> </div>
             <div className="mt-3">
                 {/* <a href="mailto:villysiu@gmail.com" className="me-3">
@@ -10,16 +12,16 @@ const Footer = () => {
                 <a href="https://www.linkedin.com/in/villy-siu-384b81132/" target="_blank" className="me-3">
                 <Linkedin size={30} color="gray" />
                 </a>
-                <Github size={30} color="gray" /> 
-                <a href="https://github.com/villysiu/nodejs-pizza-api" target="_blank">
+                <Github size={30} color="gray" className='me-2'/> 
+                <a href="https://github.com/villysiu/nodejs-pizza-api" target="_blank" className='pe-2'>
                     backend
                 </a>
-                {"  "}
-                <a href="https://github.com/villysiu/pizza-react" target="_blank">
+         
+                <a href="https://github.com/villysiu/pizza-react" target="_blank" className='pe-2'> 
                     frontend
                 </a>
             </div>
-            <a href="/api-docs" target="_blank">API Documentation</a>
-        </>
+            <a href={`${BACKEND_API}/api-docs`} target="_blank">API Documentation</a>
+        </div>
     )}
 export default Footer

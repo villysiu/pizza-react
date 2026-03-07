@@ -11,7 +11,7 @@ const AddCartButton = ({
     quantity, 
     handleClose
 }) => {
-   console.log(ingredientDetails, sizeId)
+//    console.log(ingredientDetails, sizeId)
     const { user, setShow } = useAuth();
     const { addCart, loading, setPendingItem } = useCart();
     const { sizes, ingredients } = useMenu();

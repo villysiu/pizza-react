@@ -6,7 +6,7 @@ const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
-    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+    const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 
     const { user } = useAuth();
     const { createCartAlert, showAlert } = useAlert();
@@ -155,6 +155,7 @@ export const CartProvider = ({ children }) => {
     }, [user])
 
     useEffect(()=>{
+        console.log("pendingItem", pendingItem)
         if(user && pendingItem){
             addCart(pendingItem)
             setPendingItem(null)

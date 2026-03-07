@@ -7,13 +7,10 @@ import CustomizeItemModal  from '../menuitem/CustomizeItemModal'
 const CartEditIcon = ({cart}) =>{
 
     const [selectedItem, setSelectedItem,] = useState(null)
-    console.log(cart)
 
     const handleClose = () =>{
         setSelectedItem(null)
     }
-
-   
     return (
         <>
         <CustomizeItemModal handleClose={handleClose} item={selectedItem} />

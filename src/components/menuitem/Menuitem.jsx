@@ -40,7 +40,7 @@ function MenuItem() {
                     <div style={{ position: "relative", width: "100%"}}>
                       <Card.Img 
                         // src={item.imageUrl} 
-                        src={`https://github.com/villysiu/pizza-react/blob/main/src/assets/${menuitem.imageUrl}?raw=true`}
+                        src={`https://raw.githubusercontent.com/villysiu/pizza-react/main/src/assets/${menuitem.imageUrl}`}
                         alt={menuitem.title}
                         style={{ 
                           width: "100%", 

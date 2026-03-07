@@ -6,7 +6,7 @@ const OrderContext = createContext();
 
 
 export const OrderProvider = ({ children }) => {
-    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+    const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 
     const { user } = useAuth();
     const { showAlert } = useAlert();
@@ -50,8 +50,7 @@ export const OrderProvider = ({ children }) => {
         setShow(null)
         // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try {
-            await new Promise((resolve)=>out(resolve, 2000))
-            
+        
             const response = await fetch(`${BACKEND_API}/api/v1/orders/${orderId}`, {
                 'method': "GET",
                 'headers': {

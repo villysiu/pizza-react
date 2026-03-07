@@ -16,16 +16,19 @@ import ProtectedRoute from "./components/routes/ProtectedRoute"
 import { useAuth } from './components/context/AuthContext'
 import { useCart } from './components/context/CartContext'
 import { useOrder } from './components/context/OrderContext'
+import { useMenu } from './components/context/MenuContext'
 import FullScreenSpinner from './components/FullScreenSpinner'
 
 function App(){
   const { loading: cartLoading } = useCart();
   const {loading: orderLoading } = useOrder();
   const {loading: authLoading } = useAuth();
+  const {loading: menuLoading } = useMenu();
 
   return (
     <>
       {(
+        menuLoading ||
         orderLoading || 
         cartLoading || 
         authLoading) && <FullScreenSpinner /> }

@@ -10,8 +10,6 @@ import PasswordInput from "./PasswordInput";
 const Login = () => {
     const { login, show, setShow } = useAuth();
 
-
-    console.log(show)
     const [email, setEmail] = useState("")
     const [emailError, setEmailError] = useState("")
     const [password, setPassword] = useState("")
@@ -22,16 +20,12 @@ const Login = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         const success = await login({'email': email, 'password': password})
-        console.log(success)
+        // console.log(success)
         if(success ){
             setEmail('');
             setPassword('')
-            
-       
         }
-        
     }
-
 
     return(
         <Form style={{ width: '100%'}}>

@@ -6,7 +6,7 @@ const AuthContext = createContext();
 
 
 export const AuthProvider = ({ children }) => {
-    const BACKEND_API = process.env.REACT_APP_BACKEND_API;
+    const BACKEND_API = import.meta.env.VITE_BACKEND_API;
 
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
