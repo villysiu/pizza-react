@@ -7,7 +7,6 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const BACKEND_API = import.meta.env.VITE_BACKEND_API;
-    console.log(BACKEND_API)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [show, setShow] = useState(''); // controle login/signup modal
