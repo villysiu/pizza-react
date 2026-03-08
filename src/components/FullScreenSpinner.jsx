@@ -1,6 +1,8 @@
-import { Spinner } from 'react-bootstrap';
-
-const FullScreenSpinner = () => (
+import { Spinner, Image } from 'react-bootstrap';
+// import loaderGif from '../assets/giphy.gif';
+const FullScreenSpinner = () => {
+    
+    return (
   <div style={{
     position: 'fixed',
     top: 0, left: 0,
@@ -13,16 +15,17 @@ const FullScreenSpinner = () => (
     zIndex: 9999
   }}>
     <Spinner animation="border" />
-    <Image 
+    {/* <Image 
                         
-                        src={`${IMAGE_URL}/${giphy.gif}`}
+                        src={loaderGif} 
                         alt="Loading"
                         style={{ 
-                          width: "2rem", 
+                          width: "5rem", 
                           aspectRatio: "1/1",
                           objectFit: "cover"}}
-                      />
+                      /> */}
   </div>
-);
+    )
+  };
 
 export default FullScreenSpinner;

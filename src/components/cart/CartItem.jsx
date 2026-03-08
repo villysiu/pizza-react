@@ -18,7 +18,7 @@ const CartItem = ({ cart }) => {
     //     quantity: 1,
     //     unitPrice: 46
     // }
-
+    const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
     const {menuitems, sizes, ingredients } = useMenu();
     const menuitem = menuitems.find(m=>m._id === cart.menuitemId);
     const size = sizes.find(s=>s._id === cart.sizeId);
@@ -40,7 +40,7 @@ const CartItem = ({ cart }) => {
         <Row key={cart._id} className='px-2 py-3' style={{ borderBottom: '1px solid black' }}>
             <Col xs={2} className='p-0'>
                 <Image 
-                    src={`${IMAGE.URL}/${menuitem.imageUrl}`}
+                    src={`${IMAGE_URL}/${menuitem.imageUrl}`}
                     alt={menuitem.title}
                     style={{ 
                     width: "100%", 

@@ -42,6 +42,7 @@ function MenuItem() {
                       <Card.Img 
                         // src={item.imageUrl} 
                         src={`${IMAGE_URL}/${menuitem.imageUrl}`}
+
                         alt={menuitem.title}
                         style={{ 
                           width: "100%", 
