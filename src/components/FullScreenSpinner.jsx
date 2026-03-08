@@ -13,6 +13,15 @@ const FullScreenSpinner = () => (
     zIndex: 9999
   }}>
     <Spinner animation="border" />
+    <Image 
+                        
+                        src={`${IMAGE_URL}/${giphy.gif}`}
+                        alt="Loading"
+                        style={{ 
+                          width: "2rem", 
+                          aspectRatio: "1/1",
+                          objectFit: "cover"}}
+                      />
   </div>
 );
 
