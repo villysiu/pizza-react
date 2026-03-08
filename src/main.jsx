@@ -18,7 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <CartProvider>
           <MenuProvider>
             <OrderProvider>
-              <App />
+              <App /> 
             </OrderProvider>
           </MenuProvider>
         </CartProvider>
