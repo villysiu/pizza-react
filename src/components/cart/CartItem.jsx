@@ -40,8 +40,7 @@ const CartItem = ({ cart }) => {
         <Row key={cart._id} className='px-2 py-3' style={{ borderBottom: '1px solid black' }}>
             <Col xs={2} className='p-0'>
                 <Image 
-                    // src={menuitem.imageUrl} 
-                    src='https://github.com/villysiu/nodeJs-tea-frontend/blob/main/public/Chamomile-Tea.webp?raw=true'
+                    src={`${IMAGE.URL}/${menuitem.imageUrl}`}
                     alt={menuitem.title}
                     style={{ 
                     width: "100%", 

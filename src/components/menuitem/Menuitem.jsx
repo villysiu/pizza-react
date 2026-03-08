@@ -7,6 +7,7 @@ import CustomizeItemModal  from './CustomizeItemModal'
 function MenuItem() {
   const { menuitems } = useMenu();
   const [selectedItem, setSelectedItem] = useState(null)
+  const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 
   const handleClick = (menuitem) =>{
     
@@ -40,7 +41,7 @@ function MenuItem() {
                     <div style={{ position: "relative", width: "100%"}}>
                       <Card.Img 
                         // src={item.imageUrl} 
-                        src={`https://raw.githubusercontent.com/villysiu/pizza-react/main/src/assets/${menuitem.imageUrl}`}
+                        src={`${IMAGE_URL}/${menuitem.imageUrl}`}
                         alt={menuitem.title}
                         style={{ 
                           width: "100%", 
