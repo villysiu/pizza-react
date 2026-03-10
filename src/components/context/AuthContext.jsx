@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const BACKEND_API = import.meta.env.VITE_BACKEND_API;
+    // console.log(BACKEND_API)
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
     const [show, setShow] = useState(''); // controle login/signup modal
@@ -16,8 +17,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async(userData) => {
         setLoading(true);
-        console.log('IN LOGIN')
-            console.log(userData)
+
         try {
             const response = await fetch(`${BACKEND_API}/api/v1/auth/login`, {
                 'method': "POST",
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
     }
     const register = async (userData) => {
         setLoading(true);
-        console.log(userData)
+        
         try {
             const response = await fetch(`${BACKEND_API}/api/v1/auth/register`, {
                 'method': "POST",
@@ -134,7 +134,7 @@ export const AuthProvider = ({ children }) => {
     }
     const updateCredential = async (userData) => {
         setLoading(true);
-        console.log(userData)
+
         try {
             // await new Promise((resolve)=>setTimeout(resolve, 3000))
             const response = await fetch(`${BACKEND_API}/api/v1/auth`, {
@@ -168,14 +168,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     // fetch current user if jwt key exists in local storage
-    useEffect(()=>{
-        console.log(show)
-      fetchCurrentUser();
-  }, [])
+//     useEffect(()=>{
+//         console.log(show)
+//       fetchCurrentUser();
+//   }, [])
 
-  useEffect(() => {
-    console.log("User changed:", user);
-    }, [user]);
+//   useEffect(() => {
+//     console.log("User changed:", user);
+//     }, [user]);
 
     return (
         <AuthContext.Provider value={{ user, login, register, logout, updateCredential, loading, setLoading, show, setShow }}>

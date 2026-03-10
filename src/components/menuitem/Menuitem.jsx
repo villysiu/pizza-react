@@ -5,9 +5,13 @@ import { PlusCircleFill } from "react-bootstrap-icons"
 import CustomizeItemModal  from './CustomizeItemModal'
 
 function MenuItem() {
-  const { menuitems } = useMenu();
+  const { menuitems, searchDetails } = useMenu();
   const [selectedItem, setSelectedItem] = useState(null)
   const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
+
+  const {results: searchResults, query} = searchDetails;
+
+  const itemsToDisplay = searchResults.length > 0 ? searchResults : menuitems;
 
   const handleClick = (menuitem) =>{
     
@@ -26,9 +30,16 @@ function MenuItem() {
     <>
     <CustomizeItemModal handleClose={handleClose} item={selectedItem} />
     <Container className="mt-5">
-      <h1>Menu Items</h1>
+      <div className="text-start">
+      {
+        searchResults.length > 0 
+        ? 
+        <h4>{`${searchResults.length} item${searchResults.length>1? "s": ""} match your search for "${query}"`} </h4>
+        : <h1>Menu Items</h1>
+      }
+      </div>
       <Row>
-        {menuitems.map((menuitem) => (
+        {itemsToDisplay.map((menuitem) => (
           <Col xs={12} md={6} key={menuitem._id} className="mb-3">
             <Card onClick={() => handleClick(menuitem)} className='p-0'>
               <Card.Body className='p-0' style={{ cursor: 'pointer' }}>

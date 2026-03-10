@@ -8,7 +8,7 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Profile from './components/user/Profile'
 import Orders from "./components/order/Orders"
-import NavigationBar from "./components/navbar/Navbar"
+import NavigationBar from "./components/navbar/NavigationBar"
 import Footer from "./components/Footer"
 import AlertBar from "./components/navbar/AlertBar"
 import ProtectedRoute from "./components/routes/ProtectedRoute"
