@@ -81,25 +81,20 @@ export const AuthProvider = ({ children }) => {
             setShow('');
         }
     }
-    const logout = async () => {
+    const logout = async (skipLoading = false) => {
+    if (!skipLoading) 
         setLoading(true);
-        try {
-            // await new Promise((resolve)=>setTimeout(resolve, 2000))
-            
-            setUser(null)
-            
-            localStorage.removeItem("token");
-            showAlert("Goodbye", "success")
-        
-        } catch (error) {
-            // no error not api
-            console.error(error)
 
-        } finally {
-            setLoading(false);
-        }
-        
+    try {
+        setUser(null)
+        localStorage.removeItem("token");
+        showAlert("Goodbye", "success")
+    } catch (error) {
+        console.error(error)
+    } finally {
+        if (!skipLoading) setLoading(false);
     }
+}
 
     const fetchCurrentUser = async() => {
         setLoading(true);
@@ -107,6 +102,7 @@ export const AuthProvider = ({ children }) => {
             setLoading(false);
             return null;
         }
+        console.log('getching')
         // await new Promise((resolve)=>setTimeout(resolve, 2000))
         try{
             const response = await fetch(`${BACKEND_API}/api/v1/auth/me`,{
@@ -126,7 +122,7 @@ export const AuthProvider = ({ children }) => {
         }
         catch(error){
             console.error(error);
-            logout()
+            logout(true);
         } 
         finally {
             setLoading(false);
