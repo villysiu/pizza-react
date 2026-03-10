@@ -25,7 +25,12 @@ function App(){
   const {loading: authLoading } = useAuth();
   const {loading: menuLoading } = useMenu();
 
-  return (
+  console.log( "menuLoading", menuLoading)
+  console.log( "orderLoading", orderLoading)
+  console.log( "cartLoading", cartLoading)
+  console.log( "authLoading", authLoading)
+
+  return(
     <>
       {(
         menuLoading ||
