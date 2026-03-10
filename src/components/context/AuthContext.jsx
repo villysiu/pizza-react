@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const BACKEND_API = import.meta.env.VITE_BACKEND_API;
     // console.log(BACKEND_API)
     const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [show, setShow] = useState(''); // controle login/signup modal
 
     const { showAlert } = useAlert();
@@ -168,10 +168,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     // fetch current user if jwt key exists in local storage
-//     useEffect(()=>{
-//         console.log(show)
-//       fetchCurrentUser();
-//   }, [])
+    useEffect(()=>{
+
+      fetchCurrentUser();
+  }, [])
 
 //   useEffect(() => {
 //     console.log("User changed:", user);
